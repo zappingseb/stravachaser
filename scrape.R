@@ -192,8 +192,8 @@ lonO = lon + dLon * 180/Pi
 library(maptools)
 
 # Go from Greenland to Jordan:
-lat <- seq(from=28.818819,to=75.791224,by=0.09)
-long <- seq(from = -25.028502,to=42.180141,by=0.14)# to=, by= 0.14)
+lat <- seq(from=28.818819,to=75.791224,by=0.045)
+long <- seq(from = -25.028502,to=42.180141,by=0.07)# to=, by= 0.14)
 data(wrld_simpl)
 
 # Build a 5 km covering grid
@@ -206,23 +206,42 @@ pts <- SpatialPoints(points, proj4string=CRS(proj4string(wrld_simpl)))
 ## Find which points fall over land
 ii <- !is.na(over(pts, wrld_simpl)$FIPS)
 
+# Test Plot
+around_munich <- intersect(intersect(intersect(which(points$lat>48),which(points$lat<48.5)), which(points$long<12)),which(points$long>11))
+
+library(rosm)
+mucmap <- searchbbox("Munich, Germany")
+osm.plot(mucmap)
+osm.points(points[around_munich,], 
+           pch=15, cex=0.6)
+
+
 # Filter the grid by being in the sea or on land
 my_df <- cbind(points,ii)
 my_df <- my_df[which(my_df[,3]),]
 
 # Create URLs from all land points
 urls <- paste0(
-  "https://www.doogal.co.uk/SegmentChooser.ashx?",
-  "&lat=",
-  formatC(my_df[,"lat"], format="f", digits=6),
-  "&lng=",
-  formatC(my_df[,"long"], format="f", digits=6)
+  "https://www.doogal.co.uk/StravaSegments.ashx?",
+  "&swLat=",
+  formatC(my_df[,"lat"], format="f", digits=14),
+  "&swLng=",
+  formatC(my_df[,"long"], format="f", digits=14),
+  "&nwLat=",
+  formatC(my_df[,"lat"]+0.045, format="f", digits=14),
+  "&nwLng=",
+  formatC(my_df[,"long"]+0.7, format="f", digits=14),
+  "&type=riding&ridersLt=&min_cat=0"
 )
 
+names(urls) <- paste0(my_df$lat+0.0225,",",my_df$long+0.35)
+
+# swLat=47.57518064076296&swLng=10.400523396303555&neLat=48.67513713589727&neLng=12.515391560366055&type=riding&ridersLt=&min_cat=0
 # 
 library(async)
 
 # Create a function to asynchronously crawl the data
+# Catch content of JSON by an own stringr parser
 revdep_authors <- function(x) {
   
   # get the URL
@@ -243,8 +262,9 @@ revdep_authors <- function(x) {
             distance = stringr::str_match_all(x,"\\\"distance\\\"\\:(\\-{0,1}\\d{1,10}\\.{0,1}\\d{1,10})")[[1]][,2],
             polyline = stringr::str_match_all(x,"\\\"polyline\\\"\\:\\\"([^\\\"]*)")[[1]][,2],
             total_elevation_gain = stringr::str_match_all(x,"\\\"total_elevation_gain\\\"\\:(\\-{0,1}\\d{1,10}\\.{0,1}\\d{1,10})")[[1]][,2],
-            kom_score = stringr::str_match_all(x,"\\\"kom_score\\\"\\:\\\"([^\\\"]*)")[[1]][,2],
-            elevation_high = stringr::str_match_all(x,"\\\"elevation_high\\\"\\:(\\-{0,1}\\d{1,10}\\.{0,1}\\d{1,10})")[[1]][,2]
+            kom_time = stringr::str_match_all(x,"\\\"kom_time\\\"\\:(\\-{0,1}\\d{1,10}\\.{0,1}\\d{1,10})")[[1]][,2],
+            elevation_high = stringr::str_match_all(x,"\\\"elevation_high\\\"\\:(\\-{0,1}\\d{1,10}\\.{0,1}\\d{1,10})")[[1]][,2],
+            athlete_count = stringr::str_match_all(x,"\\\"athlete_count\\\"\\:(\\-{0,1}\\d{1,10}\\.{0,1}\\d{1,10})")[[1]][,2]
           )
         })
       
@@ -252,20 +272,26 @@ revdep_authors <- function(x) {
   
   async_map(x, get_author)
 }
-data_list <- list()
+
+url_list <- split(urls,1001)
+
+data_list_search <- list()
 # Crawl the URLs
 start.time <- Sys.time()
 
-for(i in 3:1001){
+# Scraping data from URLs 
+# URLs are cut into 1001 pieces
+for(i in 1:1001){
   
   data_downloaded <-  synchronise(revdep_authors(url_list[[i]]))
   
-  names(data_downloaded) <- url_list[[i]]
+  names(data_downloaded) <- names(url_list[[i]])
   
+  # Filter for empty positions on the map
   data_downloaded_filtered <- Filter(function(x) length(x$id)>0, data_downloaded)
   
-  data_list <- append(
-    data_list,
+  data_list_search <- append(
+    data_list_search,
     data_downloaded_filtered
   )
 }
@@ -277,9 +303,9 @@ message(time.taken)
 # Name the URLs such that the segments can be mapped back to places where they come from
 names(my_data) <- paste0("long:",points$long,",","lat:",points$lat)
 
-# Filter all the data by not being empty
 
+library(dplyr)
+data_list_new <- lapply(data_list,function(x){x$kom_score<-NULL;x})
 
-
-
+all_data_table <- bind_rows(lapply(data_list_new,as.data.frame.list))
 
