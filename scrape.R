@@ -227,9 +227,9 @@ urls <- paste0(
   formatC(my_df[,"lat"], format="f", digits=14),
   "&swLng=",
   formatC(my_df[,"long"], format="f", digits=14),
-  "&nwLat=",
+  "&neLat=",
   formatC(my_df[,"lat"]+0.045, format="f", digits=14),
-  "&nwLng=",
+  "&neLng=",
   formatC(my_df[,"long"]+0.7, format="f", digits=14),
   "&type=riding&ridersLt=&min_cat=0"
 )
@@ -273,7 +273,7 @@ revdep_authors <- function(x) {
   async_map(x, get_author)
 }
 
-url_list <- split(urls,1001)
+url_list <- split(urls,1:4001)
 
 data_list_search <- list()
 # Crawl the URLs
@@ -281,11 +281,11 @@ start.time <- Sys.time()
 
 # Scraping data from URLs 
 # URLs are cut into 1001 pieces
-for(i in 1:1001){
+for(i in 1:4001){
   
   data_downloaded <-  synchronise(revdep_authors(url_list[[i]]))
   
-  names(data_downloaded) <- names(url_list[[i]])
+  # names(data_downloaded) <- names(url_list[[i]])
   
   # Filter for empty positions on the map
   data_downloaded_filtered <- Filter(function(x) length(x$id)>0, data_downloaded)
