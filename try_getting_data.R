@@ -107,6 +107,12 @@ strava_data_all$distance <- as.character(strava_data_all$distance)
 strava_data_all$total_elevation_gain <- as.character(strava_data_all$total_elevation_gain)
 
 all_data_table_strava <- bind_rows(strava_data_all,all_data_table)
+
+print(length(which(!is.na(all_data_table_strava$average))))
+temp <- bind_rows(all_data_table_strava,strava_data_all)
+temp <- temp[!duplicated(temp$id),]
+print(length(which(!is.na(temp$average))))
+
 all_data_table_strava <- all_data_table_strava[!duplicated(all_data_table_strava$id),]
 
 #------------- Leaderboard generation -------------------
@@ -238,6 +244,8 @@ calc_distance <- function(
   return(res)
 }
 
+#-------- Crawling leaderboards ----------------------
+
 all_data_table_strava$average <- NA
 all_data_table_strava$median <- NA
 all_data_table_strava$average_M <- NA
@@ -248,7 +256,7 @@ all_data_table_strava$chaser_F <- NA
 all_data_table_strava$chaser_M <- NA
 all_data_table_strava$chaser <- NA
 
-city <- "Paris"
+city <- "Munich"
 
 points_to <- geocode(city)[1,]
 points_to$lng <- points_to$lon
@@ -259,27 +267,32 @@ distance <- calc_distance(
 )
 
 
+segment_indeces <- which(distance$nn.dists <= 30000)
 
-segment_indeces <- which(distance$nn.dists <= 20000)
 for(segment_index in 1:length(segment_indeces)){
   segment <- segment_indeces[segment_index]
-  all_data_table_strava[segment,] <- all_data_table_strava[segment,] %>%
-    rowwise() %>%
-    mutate(mykey=paste(get_speed(stoken=!!stoken,id=id,distance=distance),collapse = ",")) %>%
-    separate(
-      col=mykey,
-      sep=",",
-      into=c("average","median","average_M","median_M","average_F","median_F","chaser_F","chaser_M","chaser"))
-  Sys.sleep(4.5)
+  # Check if speed was already calculated
+  if(is.na(all_data_table_strava[segment,"average"])){
+    
+    all_data_table_strava[segment,] <- all_data_table_strava[segment,] %>%
+      rowwise() %>%
+      mutate(mykey=paste(get_speed(stoken=!!stoken,id=id,distance=distance),collapse = ",")) %>%
+      separate(
+        col=mykey,
+        sep=",",
+        into=c("average","median","average_M","median_M","average_F","median_F","chaser_F","chaser_M","chaser"))
+    Sys.sleep(4.5)
+  }
 }
 
+#---------- Visualizing segments ----------
 
 # Plot all segments wihtin Munich
 library(rosm)
 library(prettymapr)
 citymap <- searchbbox(city)
 osm.plot(citymap)
-osm.points(strava_data_all[which(distance$nn.dists <= 30000),c("lng","lat")], 
+osm.points(all_data_table_strava[which(distance$nn.dists <= 30000),c("lng","lat")], 
            pch=15, cex=0.6)
 
 print(paste0("In ",city," I found: ",length(which(distance$nn.dists <= 30000))," segments."))

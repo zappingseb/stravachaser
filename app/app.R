@@ -15,7 +15,7 @@ source("score_text.R")
 
 devtools::load_all("stravavis")
 
-ui <- fluidPage(
+ui <- fluidPage(theme="style.css",
   useShinyjs(), 
   fluidRow(
     

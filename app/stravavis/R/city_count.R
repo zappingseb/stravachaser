@@ -25,13 +25,15 @@ cityCountUI <- function(id) {
   fluidRow(
     tags$h2("Selected Segments"),
     column(12,attachstravavisDep(tag = mytag)),
-    column(12,div(class="city count",
+    column(12,div(style="height:2em")),
+    column(12,div(class="city count withhover",
         onClick=paste0("Shiny.onInputChange('",ns('jsValue'),"',Math.random());"),
         plotOutput(
           ns("count_length")
         )# plotOutput
     )),#div #column
-    HTML("Click the graphic for details"),
+    column(12,HTML("Click the graphic for details")),
+    column(12,div(style="height:5em")),
     div(id=ns("city_hist_wrapper"),class="count wrapper",style="display:none",
         column(6,cityhistUI(ns("city_hist1"))),
         column(6,cityhistUI(ns("city_hist2")))

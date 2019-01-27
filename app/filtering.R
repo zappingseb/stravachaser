@@ -14,7 +14,7 @@ filteringUI <- function(id) {
           "Male" = "m",
           "Female" = "f",
           "both" = "a"
-        ),selected = "both"),
+        ),selected = "a"),
         sliderInput(ns("distance"),"Segment length (km)",
                     min=0.05,
                     max=30,

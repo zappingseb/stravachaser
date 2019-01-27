@@ -1,0 +1,58 @@
+
+span.irs-bar {
+    background: #fc4c03;
+    border-top: 1px solid #242424;
+    border-bottom:  1px solid #242424;
+}
+
+span.irs-line {
+    border-radius:  0;
+    border-color: #242424;
+    background: #efefef;
+}
+
+span.irs-bar-edge {
+    border: 1px solid #242424;
+    border-right:  0;
+    background: #fc4c03;
+    border-radius:  0;
+}
+
+span.irs-slider.single {
+    border-radius:  0;
+    box-shadow:  none;
+    background-color: #efefef;
+    border: 1px solid #d17960;
+}
+
+span.irs-single {
+    background: #f66b41;
+    border-radius:  0;
+}
+
+.leaflet-container a {
+    color: #5f1c00;
+}
+
+span.irs-to{
+    background: #f66b41;
+    border-radius:  0;
+}
+span.irs-from{
+    background: #f66b41;
+    border-radius:  0;
+}
+
+span.irs-slider.to {
+    border-radius:  0;
+    box-shadow:  none;
+    background-color: #efefef;
+    border: 1px solid #d17960;
+}
+
+span.irs-slider.from {
+    border-radius:  0;
+    box-shadow:  none;
+    background-color: #efefef;
+    border: 1px solid #d17960;
+}

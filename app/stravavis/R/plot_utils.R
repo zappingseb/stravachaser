@@ -13,6 +13,7 @@ left_right_plot <- function(label="# of segments",
   if(length(right)==0)right<-0
   
   DATA<-data.frame(state=c(label),sales=c(right),sales_staff=c(left))
+  DATA$state <- factor(DATA$state, levels = label)
   
   library(grid)
   g.mid<-ggplot(DATA,aes(x=1,y=state))+geom_text(aes(label=state),angle = 90)+

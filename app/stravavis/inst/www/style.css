@@ -1,3 +1,8 @@
 .city.count>.shiny-plot-output {
     max-height: 9em;
 }
+.city.count.withhover:hover {
+  -moz-box-shadow:    3px 3px 5px 6px #ebebeb;
+  -webkit-box-shadow: 3px 3px 5px 6px #ebebeb;
+  box-shadow:         3px 3px 5px 6px #ebebeb;
+}
