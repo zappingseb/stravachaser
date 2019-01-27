@@ -1,0 +1,297 @@
+1
+MOSKVA (Moscow)	Russia	
+8,297,000
+2
+LONDON	UK	
+7,074,000
+3
+St Petersburg	Russia	
+4,678,000
+4
+BERLIN	Germany	
+3,387,000
+5
+MADRID	Spain	
+2,824,000
+6
+ROMA	Italy	
+2,649,000
+7
+KIEV	Ukraine	
+2,590,000
+8
+PARIS	France	
+2,152,000
+9
+BUCURESTI (Bucharest)	Romania	
+2,016,000
+10
+BUDAPEST	Hungary	
+1,825,000
+11
+Hamburg	Germany	
+1,705,000
+12
+MINSK	Belarus	
+1,677,000
+13
+WARSZAWA (Warsaw)	Poland	
+1,615,000
+14
+BEOGRAD (Belgrade)	Serbia	
+1,594,000
+15
+WIEN (Vienna)	Austria	
+1,540,000
+16
+Kharkov	Ukraine	
+1,494,000
+17
+Barcelona	Spain	
+1,455,000
+18
+Novosibirsk	Russia	
+1,400,000
+19
+Nizhny Novgorod	Russia	
+1,358,000
+20
+Milano (Milan)	Italy	
+1,306,000
+21
+Ekaterinoburg	Russia	
+1,267,000
+22
+München (Munich)	Germany	
+1,195,000
+23
+PRAHA (Prague)	Czech Republic	
+1,193,000
+24
+Samara	Russia	
+1,165,000
+25
+Omsk	Russia	
+1,153,000
+26
+SOFIA	Bulgaria	
+1,139,000
+27
+Dnepropetrovsk	Ukraine	
+1,108,000
+28
+Kazan	Russia	
+1,092,000
+29
+Ufa	Russia	
+1,088,000
+30
+Chelyabinsk	Russia	
+1,084,000
+31
+Donetsk	Ukraine	
+1,050,000
+32
+Napoli (Naples)	Italy	
+1,047,000
+33
+Birmingham	UK	
+1,021,000
+34
+Perm	Russia	
+1,014,000
+35
+Rostov-na-Donu	Russia	
+1,003,000
+36
+Odessa	Ukraine	
+1,002,000
+37
+Volgograd	Russia	
+992,000
+38
+Köln (Cologne)	Germany	
+963,000
+39
+Torino (Turin)	Italy	
+921,000
+40
+Voronezh	Russia	
+903,000
+41
+Krasnoyarsk	Russia	
+876,000
+42
+Saratov	Russia	
+875,000
+43
+ZAGREB	Croatia	
+868,000
+44
+Zaporozhye	Ukraine	
+850,000
+45
+Lódz	Poland	
+803,000
+46
+Marseille	France	
+800,000
+47
+RIGA	Latvia	
+793,000
+48
+Lvov	Ukraine	
+786,000
+49
+ATHINAI (Athens)	Greece	
+772,000
+50
+Salonika	Greece	
+749,000
+51
+STOCKHOLM	Sweden	
+744,000
+52
+Kraków	Poland	
+740,000
+53
+Valencia	Spain	
+736,000
+54
+AMSTERDAM	Netherlands	
+729,000
+55
+Leeds	UK	
+727,000
+56
+Tolyatti	Russia	
+720,000
+57
+Kryvy Rig	Ukraine	
+705,000
+58
+Sevilla	Spain	
+695,000
+59
+Palermo	Italy	
+689,000
+60
+Ulyanovsk	Russia	
+668,000
+61
+KISHINEV	Moldova	
+658,000
+62
+Genova	Italy	
+656,000
+63
+Izhevsk	Russia	
+654,000
+64
+Frankfurt am Main	Germany	
+644,000
+65
+Krasnodar	Russia	
+640,000
+66
+Wroclaw (Breslau)	Poland	
+637,000
+67
+Glasgow	UK	
+616,000
+68
+Yaroslave	Russia	
+614,000
+69
+Khabarovsk	Russia	
+609,000
+70
+Vladivostok	Russia	
+607,000
+71
+Zaragoza	Spain	
+601,000
+72
+Essen	Germany	
+600,000
+73
+Rotterdam	Netherlands	
+593,000
+74
+Irkutsk	Russia	
+591,000
+75
+Dortmund	Germany	
+590,000
+76
+Stuttgart	Germany	
+582,000
+77
+Barnaul	Russia	
+580,000
+78
+VILNIUS	Lithuania	
+578,000
+79
+Poznan	Poland	
+578,000
+80
+Düsseldorf	Germany	
+569,000
+81
+Novokuznetsk	Russia	
+564,000
+82
+LISBOA (Lisbon)	Portugal	
+563,000
+83
+HELSINKI	Finland	
+549,000
+84
+Málaga	Spain	
+543,000
+85
+Bremen	Germany	
+540,000
+86
+Sheffield	UK	
+530,000
+87
+SARAJEVO	Bosnia	
+529,000
+88
+Penza	Russia	
+528,000
+89
+Ryazan	Russia	
+528,000
+90
+Orenburg	Russia	
+523,000
+91
+Naberezhnye Tchelny	Russia	
+521,000
+92
+Duisburg	Germany	
+520,000
+93
+Lipetsk	Russia	
+519,000
+94
+Hannover	Germany	
+515,000
+95
+Mykolaiv	Ukraine	
+510,000
+96
+Tula	Russia	
+506,000
+97
+OSLO	Norway	
+505,000
+98
+Tyumen	Russia	
+502,000
+99
+KOBENHAVN (Copenhagen)	Denmark	
+499,000
