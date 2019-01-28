@@ -1,0 +1,13 @@
+^codecov\.yml$
+^\.travis\.yml$
+^_dev
+^_dev/*
+^_dev/*.*
+^docs
+^docs/*.*
+^docs/*
+^README.md
+^_pkgdown.yml
+^_dev_data
+^_dev_data/*
+^_dev_data/*.*

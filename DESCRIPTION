@@ -1,0 +1,33 @@
+Package: stravachaser
+Title: Visualize STRAVA city data
+Version: 0.1
+Authors@R: c(
+  person("Sebastian", "Wolf", email = "sebastian@mail-wolf.de", role = c("aut", "cre"))
+  )
+Description: A shiny app visualizing strava data. The app allows comparing two cities by how
+  fast the 60 fastest people (30 men + 30 women) go on their strava segments. The data was crawled in Jan 2019.
+Depends:
+    R (>= 3.1.0),
+    shiny (>= 0.14),
+    shinyjs,
+    leaflet
+Imports:
+    ggplot2,
+    grid,
+    gridExtra,
+    htmltools,
+    RANN,
+    dplyr,
+    sp,
+    rgdal,
+    tibble,
+    glue,
+    prettymapr,
+    utils,
+    rlang
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Suggests: 
+    viridisLite
