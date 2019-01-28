@@ -279,7 +279,7 @@ for(city in c("Paris","London","Berlin")){
   for(segment_index in 1:length(segment_indeces)){
     segment <- segment_indeces[segment_index]
     # Check if speed was already calculated
-    if(is.na(all_data_table_strava[segment,"average"])){
+    if(is.na(all_data_table_strava[segment,"average"]) || all_data_table_strava[segment,"average"]==0){
       
       all_data_table_strava[segment,] <- all_data_table_strava[segment,] %>%
         rowwise() %>%

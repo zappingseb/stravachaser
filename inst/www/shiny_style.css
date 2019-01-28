@@ -1,4 +1,6 @@
-
+.row{
+  margin-left: 0 ;
+}
 span.irs-bar {
     background: #fc4c03;
     border-top: 1px solid #242424;

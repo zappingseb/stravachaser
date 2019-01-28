@@ -17,7 +17,7 @@ attachstravavisDep <- function(tag, dependency="style.css", dependency_script = 
   dep <- htmltools::htmlDependency(
     name = "stravachaser", version = version,
     package = "stravachaser",
-    src = "www", # - Fix upon loading without devtools
+    src = "inst/www", # - Fix upon loading without devtools
     stylesheet = dependency,
     script = dependency_script
   )
