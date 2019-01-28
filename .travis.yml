@@ -10,7 +10,6 @@ addons:
     update: true
     packages:
       - libgdal1-dev
-      - libgdal1-1.7.0
 script:
 - R CMD build .
 - R CMD check *tar.gz
