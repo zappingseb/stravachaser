@@ -1,4 +1,9 @@
+# Shiny Module called 'city_score' - pure output module
 
+#' Score output - Function providing a shiny Output
+#' 
+#' This function generates 1 plot giving the overall score
+#' of two cities. Additionally it can integrate a \link{city_score_hist}
 cityScoreUI <- function(id) {
   # Create a namespace function using the provided id
   ns <- NS(id)
@@ -30,12 +35,13 @@ city_score <- function(input, output, session, city_data=NULL, stats=NULL) {
       dplyr::mutate(climb = as.numeric(total_elevation_gain)/as.numeric(distance)*100)
     
     stats_filters <- stats()
-    
     # SCORE is calculated as MEDIAN + ELEVATION_STATS * 0.5 * CLIMB
     switch(
       stats_filters$score,
-      "med" = city_data_sets %>% dplyr::mutate(score = as.numeric(median) + (!!stats_filters$elevation*0.1*climb)),
-      "avg" = city_data_sets %>% dplyr::mutate(score = as.numeric(average) + (!!stats_filters$elevation*0.1*climb)),
+      "med" = city_data_sets %>% dplyr::mutate(score = as.numeric(median)) %>%
+        dplyr::filter(score>0) %>% dplyr::mutate(score = score + !!stats_filters$elevation*0.1*climb),
+      "avg" = city_data_sets %>% dplyr::mutate(score = as.numeric(average)) %>%
+        dplyr::filter(score>0) %>% dplyr::mutate(score = score + !!stats_filters$elevation*0.1*climb),
     )
   })
   

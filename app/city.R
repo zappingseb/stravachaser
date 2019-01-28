@@ -71,6 +71,7 @@ citySelect <- function(id, label = "CSV file",selected = "London") {
 
 #' Module server function
 #' @importFrom prettymapr geocode
+#' @importFrom glue glue
 city <- function(input, output, session) {
   
   #' Get the selected cities location
@@ -97,12 +98,17 @@ city <- function(input, output, session) {
       points_to = points_to
     )
     segment_indeces <- which(distance$nn.dists <= radius())
+    
+    segment_indeces <- intersect(
+      segment_indeces,
+      which(as.numeric(all_data_table_strava$average)>0)
+    )
     return(segment_indeces)
   })
   
   # Derive the data of the strava segments within the radius
   segment_loc <- reactive(
-    return(all_data_table_strava[segment_indeces(),c("lng","lat")])
+    return(all_data_table_strava[segment_indeces(),c("lng","lat","id","name")])
   )
   
   segment_data <- reactive({
@@ -129,14 +135,19 @@ city <- function(input, output, session) {
       markerColor = "#fc4c02"
     )
     
+    segment_data <- segment_loc()
     leaflet() %>%
       addProviderTiles(providers$Stamen.TonerLite,
                       options = providerTileOptions(noWrap = TRUE)
       ) %>%
       setView(lat =points()$lat,lng=points()$lon, zoom = new_zoom) %>%
       addAwesomeMarkers(data = points(),icon=icons) %>%
-      addCircleMarkers(data=segment_loc(),radius = 0.5,color = "#fc4c02") %>%
-      addCircles(lat = points()$lat,lng=points()$lon,radius = radius(),color="#fc4c02",fillColor="#e6e6eb")
+      addCircles(lat = points()$lat,lng=points()$lon,radius = radius(),color="#fc4c02",fillColor="#e6e6eb") %>%
+      addCircleMarkers(data=segment_data[,c("lng","lat")],
+                       popup = glue::glue(
+                        "<a target=\\'_new\\' href=\\'https://www.strava.com/segments/{segment_data$id}\\'>{segment_data$name}</a>"),
+                       radius = 0.5,color = "#fc4c02")
+      
   })
   
   output$mymap <- renderLeaflet(map())

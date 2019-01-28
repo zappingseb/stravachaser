@@ -1,4 +1,17 @@
-#' Function to select a city + Range
+# Shiny Module called filtering - pure input module
+
+#' Function to select a the filters of the statistics
+#' 
+#' This function creates an output that contains a
+#' \itemize{
+#' \item{gender}{ male, femal, both}
+#' \item{distance}{ length of the segment}
+#' \item{elevation}{ 0-5 = Elevation score}
+#' \item{chaser}{ # of participants in Top30}
+#' \item{score}{ Whether the statistics are calculated by means or medians}
+#' }
+#' 
+#' @param id \code{character} ID of the object inside shiny app
 #' 
 #' @author Sebastian Wolf
 #' @import shiny 
@@ -25,10 +38,10 @@ filteringUI <- function(id) {
                     max=5,
                     value=0
         ),
-        sliderInput(ns("chaser"),"# of Athletes on segment",
+        sliderInput(ns("chaser"),"Minimum # of Athletes on segment",
                     min=1,
-                    max=100,
-                    value=c(10,100)
+                    max=30,
+                    value=10
         ),
         selectInput(
           ns("score"),
@@ -42,6 +55,14 @@ filteringUI <- function(id) {
   
 }
 
+#' Compile a list of filters from such inputs - shiny module
+#' 
+#' @param input shiny input
+#' @param output shiny output
+#' @param session shiny session
+#' 
+#' @author Sebastian Wolf
+#' @import shiny
 filtering<- function(input, output, session) {
   
   filters <- eventReactive({

@@ -132,7 +132,12 @@ get_speed <- function(stoken=get("stoken",.GlobalEnv), id=NULL,distance="1000"){
     lapply(FUN=as.data.frame.list) %>% bind_rows() %>%
     mutate("speed"=if(exists("elapsed_time")){as.numeric(!!distance)/elapsed_time*3.6}else{NA})
   },error=function(e){
-    data.frame(speed=c(0,0))
+    if(grepl("Too\\sMany",e)){
+      stop(e)
+    }else{
+      
+      data.frame(speed=c(0,0))
+    }
   }
   
   )
@@ -246,44 +251,48 @@ calc_distance <- function(
 
 #-------- Crawling leaderboards ----------------------
 
-all_data_table_strava$average <- NA
-all_data_table_strava$median <- NA
-all_data_table_strava$average_M <- NA
-all_data_table_strava$median_M <- NA
-all_data_table_strava$average_F <- NA
-all_data_table_strava$median_F <- NA
-all_data_table_strava$chaser_F <- NA
-all_data_table_strava$chaser_M <- NA
-all_data_table_strava$chaser <- NA
-
-city <- "Munich"
-
-points_to <- geocode(city)[1,]
-points_to$lng <- points_to$lon
-
-distance <- calc_distance(
-  points_from = all_data_table_strava,
-  points_to = points_to
-)
+# all_data_table_strava$average <- NA
+# all_data_table_strava$median <- NA
+# all_data_table_strava$average_M <- NA
+# all_data_table_strava$median_M <- NA
+# all_data_table_strava$average_F <- NA
+# all_data_table_strava$median_F <- NA
+# all_data_table_strava$chaser_F <- NA
+# all_data_table_strava$chaser_M <- NA
+# all_data_table_strava$chaser <- NA
 
 
-segment_indeces <- which(distance$nn.dists <= 30000)
-
-for(segment_index in 1:length(segment_indeces)){
-  segment <- segment_indeces[segment_index]
-  # Check if speed was already calculated
-  if(is.na(all_data_table_strava[segment,"average"])){
-    
-    all_data_table_strava[segment,] <- all_data_table_strava[segment,] %>%
-      rowwise() %>%
-      mutate(mykey=paste(get_speed(stoken=!!stoken,id=id,distance=distance),collapse = ",")) %>%
-      separate(
-        col=mykey,
-        sep=",",
-        into=c("average","median","average_M","median_M","average_F","median_F","chaser_F","chaser_M","chaser"))
-    Sys.sleep(4.5)
+Sys.sleep(5100)
+for(city in c("Paris","London","Berlin")){
+  
+  
+  points_to <- geocode(city)[1,]
+  points_to$lng <- points_to$lon
+  
+  distance <- calc_distance(
+    points_from = all_data_table_strava,
+    points_to = points_to
+  )
+  
+  
+  segment_indeces <- which(distance$nn.dists <= 30000)
+  for(segment_index in 1:length(segment_indeces)){
+    segment <- segment_indeces[segment_index]
+    # Check if speed was already calculated
+    if(is.na(all_data_table_strava[segment,"average"])){
+      
+      all_data_table_strava[segment,] <- all_data_table_strava[segment,] %>%
+        rowwise() %>%
+        mutate(mykey=paste(get_speed(stoken=!!stoken,id=id,distance=distance),collapse = ",")) %>% select("mykey")
+        separate(
+          col=mykey,
+          sep=",",
+          into=c("average","median","average_M","median_M","average_F","median_F","chaser_F","chaser_M","chaser"))
+      Sys.sleep(4.5)
+    }
   }
 }
+#city <- "Paris"
 
 #---------- Visualizing segments ----------
 
@@ -298,3 +307,34 @@ osm.points(all_data_table_strava[which(distance$nn.dists <= 30000),c("lng","lat"
 print(paste0("In ",city," I found: ",length(which(distance$nn.dists <= 30000))," segments."))
 
 
+#-------- Validate crawled segments -------
+
+no_data_list <- list()
+for(city in c("Paris","London","Berlin")){
+  
+  
+  points_to <- geocode(city)[1,]
+  points_to$lng <- points_to$lon
+  
+  distance <- calc_distance(
+    points_from = all_data_table_strava,
+    points_to = points_to
+  )
+  
+  
+  segment_indeces <- which(distance$nn.dists <= 30000)
+  
+  no_data <- c( which(is.na(all_data_table_strava$average)),
+             which(all_data_table_strava$average==0))
+  no_data <- no_data[which(!duplicated(no_data))]
+  print(
+    paste0(
+      length(intersect(segment_indeces,no_data)),
+      "/",
+      length(segment_indeces)
+    )
+    
+  )
+  no_data_list[[city]] <- intersect(segment_indeces,no_data)
+}
+  
