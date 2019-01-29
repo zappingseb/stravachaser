@@ -9,9 +9,11 @@ scoreTextUI <- function(id) {
   # Create a namespace function using the provided id
   ns <- NS(id)
   
-  tags$h1(
-    textOutput(ns("score_text_out"))
+  div(id=ns("winner-wrapper"),class="andthewinneris",
+          
+    htmlOutput(ns("winnerimage"))
   )
+  
   
 }
 
@@ -32,14 +34,28 @@ scoreTextUI <- function(id) {
 #' @export
 score_text <- function(input, output, session, scores = NULL,city_data=NULL) {
   
-  output$score_text_out <- renderText({
+  observeEvent({
+    scores()
+    },{
+    shinyjs::hide('winner-wrapper')
+      Sys.sleep(1)
+    shinyjs::show('winner-wrapper',anim = TRUE, animType = "fade", time = 1)
+  })
+    
+  winner <- reactive({
     city_names <- unique(city_data()$city_name)
     score_table <- scores()
-    
-    paste0(
-    city_names[which(score_table$score_new==max(score_table$score_new,na.rm=T))],
-    " is the Winner!")
+    city_names[which(score_table$score_new==max(score_table$score_new,na.rm=T))]
   })
   
+  
+  output$winnerimage <- renderUI({
+    HTML(paste0(
+      "<div class='bgimage' style='background-image:url(./images/",tolower(winner()), ".jpg)'></div>",
+      "<div class='scoremessage'  >",
+      winner()," is the Winner!</div>"
+      )
+    )
+  })
 }
 

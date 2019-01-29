@@ -105,6 +105,15 @@ strava_data_all$id <- as.character(strava_data_all$id)
 strava_data_all$avg_grade <- as.character(strava_data_all$avg_grade)
 strava_data_all$distance <- as.character(strava_data_all$distance)
 strava_data_all$total_elevation_gain <- as.character(strava_data_all$total_elevation_gain)
+strava_data_all$average <- NA
+strava_data_all$median <- NA
+strava_data_all$average_M <- NA
+strava_data_all$median_M <- NA
+strava_data_all$average_F <- NA
+strava_data_all$median_F <- NA
+strava_data_all$chaser_F <- NA
+strava_data_all$chaser_M <- NA
+strava_data_all$chaser <- NA
 
 all_data_table_strava <- bind_rows(strava_data_all,all_data_table)
 
@@ -261,9 +270,10 @@ calc_distance <- function(
 # all_data_table_strava$chaser_M <- NA
 # all_data_table_strava$chaser <- NA
 
-
-Sys.sleep(5100)
-for(city in c("Paris","London","Berlin")){
+all_data_table_strava$lng <- as.numeric(all_data_table_strava$lng)
+all_data_table_strava$lat <- as.numeric(all_data_table_strava$lat)
+#Sys.sleep(5100)
+for(city in c("Munich","Barcelona","Warsaw","Manchester","Leeds")){
   
   
   points_to <- geocode(city)[1,]
@@ -278,16 +288,21 @@ for(city in c("Paris","London","Berlin")){
   segment_indeces <- which(distance$nn.dists <= 30000)
   for(segment_index in 1:length(segment_indeces)){
     segment <- segment_indeces[segment_index]
+    
     # Check if speed was already calculated
     if(is.na(all_data_table_strava[segment,"average"]) || all_data_table_strava[segment,"average"]==0){
       
+      print(segment %in% no_data_list[[city]])
+      
       all_data_table_strava[segment,] <- all_data_table_strava[segment,] %>%
         rowwise() %>%
-        mutate(mykey=paste(get_speed(stoken=!!stoken,id=id,distance=distance),collapse = ",")) %>% select("mykey")
+        mutate(mykey=paste(get_speed(stoken=!!stoken,id=id,distance=distance),collapse = ",")) %>% 
         separate(
           col=mykey,
           sep=",",
           into=c("average","median","average_M","median_M","average_F","median_F","chaser_F","chaser_M","chaser"))
+      
+      print(all_data_table_strava[segment,"chaser"])
       Sys.sleep(4.5)
     }
   }

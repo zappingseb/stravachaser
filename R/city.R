@@ -40,13 +40,6 @@ citySelect <- function(id, selected = "London", selections = c(
 #' @importFrom rlang .data
 city <- function(input, output, session) {
   
-  # Get the selected cities location
-  points <- eventReactive(input$name, {
-    if(is.null(input$name)){name <- "London"}else{ name <- input$name}
-    prettymapr::geocode(name)[1,c("lon","lat")]
-    
-  }, ignoreNULL = FALSE)
-  
   # Get the radius in km
   radius <- eventReactive(input$radius, {
     input$radius*1000
@@ -58,10 +51,12 @@ city <- function(input, output, session) {
     
     segment_indeces <- calc_distance_city_stravasegments(input$name, radius())
     
-    segment_indeces <- intersect(
-      segment_indeces,
-      which(as.numeric(stravachaser::all_data_table_strava$average)>0)
-    )
+    segment_indeces <- segment_indeces %>% intersect(
+      which(as.numeric(stravachaser::all_data_table_strava$average)>0)) %>%
+      intersect(
+        which(!is.na(stravachaser::all_data_table_strava$lng))
+      )
+    
     return(segment_indeces)
   })
   

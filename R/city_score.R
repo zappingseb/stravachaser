@@ -17,9 +17,10 @@ cityScoreUI <- function(id) {
     div(class="city score count withhover",
         # jsValue used to call the toggle of the detail view
         onClick=paste0("Shiny.onInputChange('",ns('jsValue'),"',Math.random());"),
-      plotOutput(
-        ns("score_compare")
-      )# plotOutput
+      barChartOutput(
+        id=ns("score_compare"),
+        label = "City score"
+      )
   )#div
   
   fluidRow(
@@ -27,7 +28,8 @@ cityScoreUI <- function(id) {
     column(12,mytag),
     
     div(id=ns("city_hist_wrapper"),class="score wrapper",style="display:none",
-        column(12,tags$b("Split by segment length:")),
+        tags$br(),
+        column(12,tags$b("Score by segment length:")),
         column(12,cityhistScoreUI(ns("city_hist_score")))
     )#div
   )
@@ -76,10 +78,18 @@ city_score <- function(input, output, session, city_data=NULL, stats=NULL) {
   })
   
   # Output to show left and right the scores
-  output$score_compare <-renderPlot(
+  output$score_compare <- renderBarChart(
     {
       scores <- scores()
-      left_right_plot(label="Score (km/h)",left=round(scores$score_new[1],3),right=round(scores$score_new[2],3))
+      jsonlite::toJSON(
+        list(
+          left=round(scores$score_new[1],3),
+          right=round(scores$score_new[2],3),
+          unit = '(~km/h)'
+          
+        )
+      )
+      #left_right_plot(label="Score (km/h)",left=round(scores$score_new[1],3),right=round(scores$score_new[2],3))
       
     }
     

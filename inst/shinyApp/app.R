@@ -1,1 +1,1 @@
-stravavis::launchApp()
+stravachaser::launchApp()

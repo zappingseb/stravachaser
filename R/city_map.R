@@ -30,25 +30,31 @@ cityMap <- function(id) {
 city_map <- function(input, output, session, city_data = NULL, city_id=NULL) {
   # Create a map with a radial layer
   map <- reactive({
+      updateProgress("stravachaser-progress","Rendering maps...",city_id*40)
     
-    segment_data_rendered <- city_data()
-    
-    city_name <- unique(segment_data_rendered$city_name)[city_id]
-    
-    radius <- unique(segment_data_rendered$radius)[city_id]
-    
-    if(is.na(radius)){
-      radius <- unique(segment_data_rendered$radius)[1]
-    }
-    
-    marker_list <- prettymapr::geocode(city_name)[1,c("lon","lat")]
-    new_zoom <- 9
-    
-    if(!is.null(input$mymap_zoom)) new_zoom <- input$mymap_zoom
-    
-    segment_map(segment_data = segment_data_rendered, radius = radius, zoom=new_zoom, marker_list = marker_list)
-    
+      segment_data_rendered <- city_data()
+      
+      city_name <- unique(segment_data_rendered$city_name)[city_id]
+      
+      radius <- unique(segment_data_rendered$radius)[city_id]
+      
+      if(is.na(radius)){
+        radius <- unique(segment_data_rendered$radius)[1]
+      }
+      
+      marker_list <- prettymapr::geocode(city_name)[1,c("lon","lat")]
+      new_zoom <- 9
+      
+      if(!is.null(input$mymap_zoom)) new_zoom <- input$mymap_zoom
+      
+      output <- segment_map(segment_data = segment_data_rendered, radius = radius, zoom=new_zoom, marker_list = marker_list)
+      
+      hideProgress("stravachaser-progress")
+      
+      return(output)
   })
   
-  output$mymap <- renderLeaflet(map())
+  output$mymap <- renderLeaflet({
+    map()
+  })
 }

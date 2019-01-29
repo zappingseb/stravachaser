@@ -73,6 +73,7 @@ calc_distance <- function(
 calc_distance_city_stravasegments <- function(city = "London", radius = 3000){
   
   points_to <- prettymapr::geocode(city)[1,c("lon","lat")]
+  
   points_to$lng <- points_to$lon
   
   distance <- calc_distance(

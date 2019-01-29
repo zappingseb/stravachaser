@@ -185,12 +185,17 @@ for( city in c("Munich","Barcelona","Warsaw","Manchester","Leeds")){
   points_to$lng <- points_to$lon
   
   #(2*pi/360) * r_earth * cos(theta)
-  # r_earth <- 6378
-  #new_latitude  = latitude  + (dy / r_earth) * (180 / pi);
+  r_earth <- 6378
+  # new_latitude  = latitude  + (dy / r_earth) * (180 / pi);
   # new_longitude = longitude + (dx / r_earth) * (180 / pi) / cos(latitude * pi/180);
   # Build a grid around the city
-  lat <- seq(from=points_to$lat-0.355,to=points_to$lat+0.355,by=0.02)
-  long <- seq(from = points_to$lng-0.24,to=points_to$lng+.24,by=0.02)# to=, by= 0.14)
+  lat <- seq(
+    from=points_to$lat - (30 / r_earth) * (180 / pi) / cos(points_to$lat * pi/180),
+    to=points_to$lat + (30 / r_earth) * (180 / pi) / cos(points_to$lat * pi/180) ,
+    by=0.02)
+  long <- seq(from = points_to$lng-(30 / r_earth) * (180 / pi),
+              to=points_to$lng+(30 / r_earth) * (180 / pi),
+              by=0.02)
   
   # Build a 5 km covering grid
   points <- expand.grid(long, lat)  # Note that I reversed OP's ordering of lat/long

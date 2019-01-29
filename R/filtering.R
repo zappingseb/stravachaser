@@ -14,6 +14,7 @@
 #' @param id \code{character} ID of the object inside shiny app
 #' 
 #' @author Sebastian Wolf
+#' @import shinycandlestick
 #' @import shiny 
 filteringUI <- function(id) {
   # Create a namespace function using the provided id
@@ -21,36 +22,50 @@ filteringUI <- function(id) {
   
   div(class="stats filters",
       
-      tagList(
-        # Exchange by https://www.jqueryscript.net/form/jQuery-Plugin-For-Tri-state-Toggle-Switch-Candlestick.html
-        selectInput(ns("gender"), "Gender", c(
-          "Male" = "m",
-          "Female" = "f",
-          "both" = "a"
-        ),selected = "a"),
-        sliderInput(ns("distance"),"Segment length (km)",
-                    min=0.05,
-                    max=30,
-                    value = c(0.5,3)
+      fluidRow(
+        column(4,
+               tags$label("Gender"),
+               shinycandlestick::CandleStick(ns("gender"),
+                                             left = c('f'='f182'),
+                                             right = c('m'='f183'),
+                                             default = c('a'='f22d'))
         ),
-        sliderInput(ns("elevation"),"Elevation gain factor",
-                    min=0,
-                    max=5,
-                    value=0
+        column(4,
+               selectInput(
+                 ns("score"),
+                 "Evaluation function",
+                 choices = c("Average"="avg","Median"="med"),
+                 selected = "med"
+                 
+               )
         ),
-        sliderInput(ns("chaser"),"Minimum # of Athletes on segment",
-                    min=1,
-                    max=60,
-                    value=10
+        column(4,
+               sliderInput(ns("distance"),"Segment length (km)",
+                           min=0.05,
+                           max=30,
+                           value = c(0.5,3)
+               )
+        )),
+      fluidRow(
+        column(4,
+               sliderInput(ns("elevation"),"Elevation gain factor",
+                           min=0,
+                           max=5,
+                           value=0
+               )
         ),
-        selectInput(
-          ns("score"),
-          "Evaluation function",
-          choices = c("Average"="avg","Median"="med"),
-          selected = "med"
-          
+        column(4,
+               sliderInput(ns("chaser"),"Minimum # of Athletes on segment",
+                           min=1,
+                           max=60,
+                           value=10
+               )
         )
-      )#taglist
+        
+      )#fluidRow
+      
+      
+      
   )#div
   
 }

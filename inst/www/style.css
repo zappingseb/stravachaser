@@ -6,3 +6,146 @@
   -webkit-box-shadow: 3px 3px 5px 6px #ebebeb;
   box-shadow:         3px 3px 5px 6px #ebebeb;
 }
+
+/* Progressbar style */
+
+.stravachaser.progress {
+    bottom: 0.5em;
+    left: 0.6em;
+    width: calc(100% - 1.3em);
+    background-color: #e6e5e5;
+    height: 6em;
+    z-index: 1000;
+    position:fixed;
+    padding: 1em;
+    opacity: 0.9;
+    border-radius: 0;
+    border: 0.005em solid black;
+}
+.stravachaser.progress .message{
+    clear:both;
+    font-family: Roboto;
+    font-weight: 900;
+
+}
+.stravachaser.progress .bar{
+    height: 2em;
+    width: 100%;
+    clear:both;
+    border-radius: 0.7em;
+    z-index: 10;
+    overflow: hidden;
+}
+.stravachaser.progress .bar100{
+   z-index: 1;
+   border-radius: 0.7em;
+
+	background: -webkit-repeating-linear-gradient(
+    145deg,
+    #f9ded6 1px,
+    #f5dad0 2px,
+    #ffe0d6 11px,
+    #ffe0d6 12px,
+    #f3c9bc 20px
+  );
+  background: repeating-linear-gradient(
+    -55deg,
+    #f9ded6 1px,
+    #ffcdbb 2px,
+    #ffc6b4 11px,
+    #ffcebb 12px,
+    #fbd2c6 20px
+	);
+
+}
+
+@-webkit-keyframes MOVE-BG {
+	from {
+		-webkit-transform: translateX(0);
+	}
+	to { 
+		-webkit-transform: translateX(46px);
+	}
+}
+
+@keyframes MOVE-BG {
+	from {
+		transform: translateX(0);
+	}
+	to { 
+		transform: translateX(46px);
+	}
+}
+
+
+.loading {
+	height: auto;
+    text-align: center;
+    color: #4c3f2e;	
+    position: relative;
+    overflow: hidden;
+	font-style: italic;
+}
+
+.bg{
+	border-radius:2em;
+    position: absolute;
+    left: -46px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+	
+  background: -webkit-repeating-linear-gradient(
+    145deg,
+    #fc9474 1px,
+    #fc551a 2px,
+    #fb6536 11px,
+    #fb6536 12px,
+    #fb6536 20px
+  );
+  background: repeating-linear-gradient(
+    -55deg,
+    #fc9474 1px,
+    #fc551a 2px,
+    #fb6536 11px,
+    #fc500f 12px,
+    #fba991 20px
+	);
+    
+    -webkit-animation-name: MOVE-BG;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+	
+    animation-name: MOVE-BG;
+	animation-duration: 2s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+/* Title image */
+
+.bgimage {
+    width:100%;
+    min-height: 30em;
+    position: relative;
+    background-position: -1em -12em;
+    opacity: 0.5;
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, 
+    from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    background-size: 100%;
+}
+.scoremessage{
+    position: relative;
+    top: -8.5em;
+    width:100%;
+    text-align:center;
+    line-height:3em;
+    font-size: 3em;
+    font-weight: 900;
+
+}
+#scoretext-winnerimage{
+    margin-bottom: -13em;
+}

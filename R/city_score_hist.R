@@ -11,7 +11,7 @@ cityhistScoreUI <- function(id) {
   ns <- NS(id)
 
     div(class="city hist",
-      plotOutput(
+      barChartOutput(
         ns("score_hist")
       )# plotOutput
   )#div
@@ -39,7 +39,7 @@ cityhistScoreUI <- function(id) {
 #' @importFrom rlang .data
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 city_score_hist <- function(input, output, session, city_data=NULL, stats=NULL) {
-  output$score_hist <-renderPlot(
+  output$score_hist <- renderBarChart(
     {
       city_data_sets <- city_data()
       
@@ -79,7 +79,15 @@ city_score_hist <- function(input, output, session, city_data=NULL, stats=NULL) 
       right[which(is.na(right))] <- 0
       
       #' Plot left/right statistics
-      left_right_plot(label=labels,left=left,right=right)
+      jsonlite::toJSON(
+        list(
+          left = left,
+          right = right,
+          label = labels,
+          unit = "(~km/h)"
+        )
+        
+      )
 
     }
 

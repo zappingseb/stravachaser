@@ -10,7 +10,8 @@ Depends:
     R (>= 3.1.0),
     shiny (>= 0.14),
     shinyjs,
-    leaflet
+    leaflet,
+    shinycandlestick
 Imports:
     ggplot2,
     grid,
@@ -24,7 +25,8 @@ Imports:
     glue,
     prettymapr,
     utils,
-    rlang
+    rlang,
+    jsonlite
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

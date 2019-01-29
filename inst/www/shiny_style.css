@@ -1,5 +1,5 @@
 .row{
-  margin-left: 0 ;
+  margin-left: 0 !important;
 }
 span.irs-bar {
     background: #fc4c03;

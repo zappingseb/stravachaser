@@ -11,9 +11,10 @@ cityCountUI <- function(id) {
   
   mytag <- 
     div(class="city count",
-      plotOutput(
-        ns("count_compare")
-      )# plotOutput
+        barChartOutput(
+          id = ns("count_compare"),
+          label = "# of segments per city"
+        )# barChartOutput
   )#div
   
   fluidRow(
@@ -24,9 +25,11 @@ cityCountUI <- function(id) {
                   
         # Send out a value jsValue to show hide the histograms inside the wrapper          
         onClick=paste0("Shiny.onInputChange('",ns('jsValue'),"',Math.random());"),
-        plotOutput(
-          ns("count_length")
+        barChartOutput(
+          ns("count_length"),
+          label="length of segments (avg)"
         )# plotOutput
+       
     )),#div #column
     column(12,HTML("Click the graphic for details")),
     column(12,div(style="height:5em")),
@@ -52,31 +55,37 @@ cityCountUI <- function(id) {
 #'  least two different cities
 #'  
 #' @importFrom dplyr group_by summarise
-#' 
+#' @importFrom jsonlite toJSON
 #' @importFrom rlang .data
 #'  
 city_count <- function(input, output, session, city_data=NULL) {
   
+  
   # Left right plot of the # of segments
-  output$count_compare <-renderPlot(
-    {
+  output$count_compare <-renderBarChart({
       city_data_sets <- city_data()
       data <- city_data_sets %>% dplyr::group_by(.data$city) %>% dplyr::summarise(n = dplyr::n())
-      left_right_plot(left=round(data$n[1],3),right=round(data$n[2],3))
-      
-    }
-    
-  )
+      return(jsonlite::toJSON(
+          list(left  = round(data$n[1],3),
+               right = round(data$n[2],3),
+               unit  = '',
+               round = 1
+          )
+        ))
+  })
   
   # left right plot of the average length of a segment
-  output$count_length <-renderPlot(
+  output$count_length <- renderBarChart(
     {
       city_data_sets <- city_data()
       data <- city_data_sets %>% dplyr::group_by(.data$city) %>% dplyr::summarise(n = mean(as.numeric(.data$distance)/1000,na.rm=T))
-      left_right_plot(label="length of segments (avg)",
-                      left=round(data$n[1],3),
-                      right=round(data$n[2],3),
-                      unit="km")
+      return(jsonlite::toJSON(
+        list(left  = round(data$n[1],3),
+             right = round(data$n[2],3),
+             unit  = 'km',
+             round = 100
+        )
+      ))
       
     }
     

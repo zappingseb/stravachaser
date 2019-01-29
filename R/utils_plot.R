@@ -116,3 +116,67 @@ segment_map <- function(
                        "<a target=\\'_new\\' href=\\'https://www.strava.com/segments/{segment_data$id}\\'>{segment_data$name}</a>"),
                      radius = 0.5,color = "#fc4c02")
 }
+
+#' Shiny output for a two sided barchart
+#' 
+#' @param id ID
+#' @param color_left HEX color code or HTML rgb color code of the left side of the chart
+#' @param color_right HEX color code or HTML rgb color code of the right side of the chart
+#' @param height HTML height string in px or em
+#' 
+#' @description This is linked to the 'barchart-binding.js' and is generated with the 'simple-skillbar.js'
+#' 
+barChartOutput <- function(id, label="", color_left="#fc4c02", color_right = "rgb(54, 72, 140)", height="3em") {
+  
+  div(
+    if(label != ""){
+      tags$label(label)
+    },
+    
+    HTML(
+      glue::glue(
+        '<div id="{id}" class="stravachaser barchart">
+          <div class="leftwrapper">
+            <div id="{id}-left" data-width="0.01" 
+             class="leftelem" data-text=" " 
+             data-height="{height}" data-direction="right" 
+             data-background="{color_left}"></div>
+          </div>
+          <div class="rightwrapper">
+             <div id="{id}-right" data-width="0.01"
+              class="rightelem" data-height="{height}" 
+              data-direction="left" data-text=" " 
+              data-background="{color_right}"></div>
+          </div>
+        </div>
+        <script>
+          $("#{id}-left").simpleSkillbar({{width:0}});
+          $("#{id}-right").simpleSkillbar({{width:0}});
+        </script>
+        '
+      )
+      
+      )#HTML
+  )
+  
+  
+}
+
+#' Generic function to render the barchart
+#' 
+#' @param expr shall give a list with elements left, right and unit
+#' @param  env environment
+#' @param quoted leave FALSE
+#' 
+#' @export
+renderBarChart <- function(expr, env=parent.frame(), quoted=FALSE) {
+  # This piece of boilerplate converts the expression `expr` into a
+  # function called `func`. It's needed for the RStudio IDE's built-in
+  # debugger to work properly on the expression.
+  
+  func <- exprToFunction(expr, env, quoted)
+  
+  function() {
+    data = func();
+  }
+}

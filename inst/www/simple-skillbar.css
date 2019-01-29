@@ -1,0 +1,22 @@
+.leftwrapper {
+    float: left;
+    width:  calc(50% - 1em);
+    text-align:left;
+    margin-right:1em;
+}
+.leftwrapper .sb_bar {
+    padding-left: 1em;
+}
+.rightwrapper{
+  float:left;
+  width:calc(50% - 1em);
+  text-align:right;
+  margin-left:1em;
+}
+.rightwrapper .sb_bar {
+    padding-right: 1em;
+    
+}
+.stravachaser.barchart{
+  text-align:center;
+}
