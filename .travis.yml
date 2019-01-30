@@ -5,6 +5,8 @@ cache:
  - apt: true
 r: release
 r_packages: devtools
+r_github_packages: zappingseb/shinycandlestick
+
 addons:
   apt:
     update: true
