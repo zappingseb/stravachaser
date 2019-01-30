@@ -292,7 +292,7 @@ for(city in c("Munich","Barcelona","Warsaw","Manchester","Leeds")){
     # Check if speed was already calculated
     if(is.na(all_data_table_strava[segment,"average"]) || all_data_table_strava[segment,"average"]==0){
       
-      print(segment %in% no_data_list[[city]])
+      #print(segment %in% no_data_list[[city]])
       
       all_data_table_strava[segment,] <- all_data_table_strava[segment,] %>%
         rowwise() %>%
@@ -302,7 +302,7 @@ for(city in c("Munich","Barcelona","Warsaw","Manchester","Leeds")){
           sep=",",
           into=c("average","median","average_M","median_M","average_F","median_F","chaser_F","chaser_M","chaser"))
       
-      print(all_data_table_strava[segment,"chaser"])
+      #print(all_data_table_strava[segment,"chaser"])
       Sys.sleep(4.5)
     }
   }
