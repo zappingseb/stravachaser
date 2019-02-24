@@ -19,7 +19,7 @@ launchApp <- function() {
 #' @export
 #' @import shiny
 #' @importFrom shinyjs toggle useShinyjs
-#' @importFrom shinyWidgets dropdownButton
+#' @importFrom shinyWidgets dropdownButton tooltipOptions
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 ui <- function(){
   
