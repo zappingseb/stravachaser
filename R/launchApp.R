@@ -16,7 +16,7 @@ launchApp <- function() {
 #' UI function of the stravachaser app
 #' 
 #' Function visualizing a shiny app for strava city comparison
-#' 
+#' @export
 #' @import shiny
 #' @importFrom shinyjs toggle useShinyjs
 #' @importFrom shinyWidgets dropdownButton
@@ -82,7 +82,7 @@ ui <- function(){
 #' @param input shiny input object
 #' @param output shiny output object
 #' @param session shiny session 
-#' 
+#' @export
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 server <- function(input, output, session) {
   

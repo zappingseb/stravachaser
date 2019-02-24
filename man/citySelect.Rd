@@ -6,7 +6,7 @@
 UI Function to select a city + Range}
 \usage{
 citySelect(id, selected = "London", selections = c(London = "London",
-  Paris = "Paris", Berlin = "Berlin"))
+  Paris = "Paris", Berlin = "Berlin", Munich = "Munich"))
 }
 \arguments{
 \item{id}{\code{character} ID of the element}

@@ -36,6 +36,7 @@ cityhistScoreUI <- function(id) {
 #' 
 #' @importFrom dplyr summarise group_by mutate summarise
 #' @import ggplot2
+#' @importFrom stringr str_replace_all
 #' @importFrom rlang .data
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 city_score_hist <- function(input, output, session, city_data=NULL, stats=NULL) {

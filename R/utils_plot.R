@@ -122,6 +122,7 @@ segment_map <- function(
 #' @param color_left HEX color code or HTML rgb color code of the left side of the chart
 #' @param color_right HEX color code or HTML rgb color code of the right side of the chart
 #' @param height HTML height string in px or em
+#' @param label Label in the center of the barchart
 #' 
 #' @description This is linked to the 'barchart-binding.js' and is generated with the 'simple-skillbar.js'
 #' 
