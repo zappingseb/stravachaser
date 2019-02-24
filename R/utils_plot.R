@@ -112,7 +112,7 @@ segment_map <- function(
     addCircles(lat = marker_list$'lat',lng=marker_list$'lon',radius = radius,color="#fc4c02",fillColor="#e6e6eb") %>%
     addCircleMarkers(data=segment_data[,c("lng","lat")],
                      popup = glue::glue(
-                       "<a target=\\'_new\\' href=\\'https://www.strava.com/segments/{segment_data$id}\\'>{segment_data$name}</a>"),
+                       "<a target='_new' href='https://www.strava.com/segments/{segment_data$id}'>{segment_data$name}</a>"),
                      radius = 0.5,color = "#fc4c02")
 }
 

@@ -48,7 +48,6 @@ score_text <- function(input, output, session, scores = NULL,city_data=NULL) {
     city_names[which(score_table$score_new==max(score_table$score_new,na.rm=T))]
   })
   
-  
   output$winnerimage <- renderUI({
     HTML(paste0(
       "<div class='bgimage' style='background-image:url(./images/",tolower(winner()), ".jpg)'></div>",
