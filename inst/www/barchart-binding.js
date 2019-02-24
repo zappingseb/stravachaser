@@ -32,7 +32,9 @@ binding.renderValue = function(el, data) {
       for (i = 0; i < data.label.length; i++) { 
         var id = $el.attr('id');
         
-      $el.append('<label>'+data.label[i]+'</label><br/>');
+        console.log(data);
+        
+        $el.append('<label>'+data.label[i]+'</label><br/>');
       $el.append('<div class="leftwrapper">' +
        '<div id="'+id+'-'+i+'-left" data-width="0.01" class="leftelem" data-text=" " data-height="'+height_elem+'" data-direction="right" data-background="'+color_left+'"></div>' + 
  ' </div><div class="rightwrapper">' +
@@ -40,13 +42,17 @@ binding.renderValue = function(el, data) {
      ' </div></div><br style="line-height:'+height_elem+'"/><br style="line-height:'+height_elem+'"/>'
       );
       
+      console.log(data.left[i])
+      console.log(limit)
+      
       // Make the left side element animate
       $el.find("#"+id+"-"+i+"-left").simpleSkillbar({
         width: data.left[i]/limit*100, 
         text: data.left[i],
         direction: 'right',
         unit: data.unit,
-        max: limit
+        max: limit,
+        round: data.round
       });
       
       // Make the left side element animate
@@ -55,7 +61,8 @@ binding.renderValue = function(el, data) {
         text: data.right[i],
         direction: 'left',
         unit: data.unit,
-        max: limit
+        max: limit,
+        round: data.round
       });
     }//for
   }else{

@@ -28,7 +28,9 @@
                     textColor: this.$.data('text-color') || '#ffffff',
                     background: this.$.data('background') || '#337ab7',
                     text: this.$.data('text') || this.$.data('width'),
-                    direction: this.$.data('direction') || 'left'
+                    direction: this.$.data('direction') || 'left',
+                    max: this.$.data('max') || '100',
+                    round: this.$.data('round') || 2
                 }, this.o
             );
 
@@ -84,7 +86,7 @@
                     clearInterval(t);
                 } else {
                     w++;
-                    var value = Math.round(e.find('.sb_label').attr('data-max') * w / 100*rounder)/rounder + ' ' + e.find('.sb_label').attr('data-unit');
+                    var value = Math.round(parseFloat(e.find('.sb_label').attr('data-max')) * w / 100*rounder)/rounder + ' ' + e.find('.sb_label').attr('data-unit');
                     e.css('width', w+'%');
                     e.find('.sb_label').text(value);
                 }
