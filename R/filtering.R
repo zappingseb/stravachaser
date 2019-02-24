@@ -21,7 +21,10 @@ filteringUI <- function(id) {
   ns <- NS(id)
   
   div(class="stats filters",
-      
+      fluidRow(
+               tags$p("Additional options to challange your city.")
+        
+      ),
       fluidRow(
         column(4,
                tags$label("Gender"),

@@ -19,12 +19,13 @@ cityScoreUI <- function(id) {
         onClick=paste0("Shiny.onInputChange('",ns('jsValue'),"',Math.random());"),
       barChartOutput(
         id=ns("score_compare"),
-        label = "City score"
+        label = ""
       )
   )#div
   
   fluidRow(
-    tags$h2("City Score"),
+    tags$h2("Which city is faster?"),
+    div(style="font-size:0.8em",tags$p("You can click the bar chart for details on the race.")),
     column(12,mytag),
     
     div(id=ns("city_hist_wrapper"),class="score wrapper",style="display:none",
@@ -73,7 +74,7 @@ city_score <- function(input, output, session, city_data=NULL, stats=NULL) {
     switch(
       stats()$score,
       "med" = score_data() %>% dplyr::group_by(.data$city) %>% dplyr::summarise(score_new = median(.data$score,na.rm=T)),
-      "avg" = score_data() %>% dplyr::group_by(.data$city) %>% dplyr::summarise(score_new = mean(.data$score,na.rm=T)),
+      "avg" = score_data() %>% dplyr::group_by(.data$city) %>% dplyr::summarise(score_new = mean(.data$score,na.rm=T))
     )
   })
   
@@ -89,7 +90,6 @@ city_score <- function(input, output, session, city_data=NULL, stats=NULL) {
           
         )
       )
-      #left_right_plot(label="Score (km/h)",left=round(scores$score_new[1],3),right=round(scores$score_new[2],3))
       
     }
     
@@ -103,9 +103,8 @@ city_score <- function(input, output, session, city_data=NULL, stats=NULL) {
     
     callModule(city_score_hist,"city_hist_score", city_data = score_data, stats=stats)
     Sys.sleep(0.1)
-    shinyjs::runjs('
-                   $(window).scrollTop($(".score.wrapper").offset().top+$(".score.wrapper").children().height()+$(".count.wrapper").height())
-                   ')
+    #shinyjs::runjs('
+    #$(window).scrollTop($(".score.wrapper").offset().top+$(".score.wrapper").children().height()+$(".count.wrapper").height())')
   })
   
   

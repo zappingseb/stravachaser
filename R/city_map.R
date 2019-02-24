@@ -10,7 +10,7 @@ cityMap <- function(id) {
   # Create a namespace function using the provided id
   ns <- NS(id)
   
-  tagList(
+  div(class="city-map",
     leaflet::leafletOutput(ns("mymap"))
   )
   
@@ -42,7 +42,7 @@ city_map <- function(input, output, session, city_data = NULL, city_id=NULL) {
         radius <- unique(segment_data_rendered$radius)[1]
       }
       
-      marker_list <- prettymapr::geocode(city_name)[1,c("lon","lat")]
+      marker_list <- geocode_limited(city_name)
       new_zoom <- 9
       
       if(!is.null(input$mymap_zoom)) new_zoom <- input$mymap_zoom

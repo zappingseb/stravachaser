@@ -19,39 +19,59 @@ launchApp <- function() {
 #' 
 #' @import shiny
 #' @importFrom shinyjs toggle useShinyjs
+#' @importFrom shinyWidgets dropdownButton
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 ui <- function(){
   
-  shiny::navbarPage(
-    useShinyjs(), 
+  shiny::navbarPage(HTML(
+    "<div class = 'appname'><i class='fas fa-bicycle'></i> City Race</div>"
+  ),
+    
+                      
     tabPanel("City vs City",
+               useShinyjs(), 
+             
+             tags$head(
+               tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Roboto")
+             ), 
+             div(class="stravachaserdropdown",dropdownButton(
+               circle = FALSE,
+               tooltipOptions(title = "More statistic options.",placement = "right"),
+               icon = icon("gear"), 
+               filteringUI("statsfilter"),
+               status = "info"
+             )),
              progressContainerUI("stravachaser-progress"),
-             attachstravavisDep(scoreTextUI("scoretext"),
-                                dependency = c("shiny_style.css","style.css","simple-skillbar.css"),
-                                dependency_script = c("simple-skillbar.js","barchart-binding.js","scoremessage.js")),
              fluidRow(
                fluidRow(
-                 column(6,citySelect("city1")),
-                 column(6,citySelect("city2", selected="Paris"))
+                 column(12,
+                        
+                        attachstravavisDep(
+                          cityScoreUI("city_score"),
+                          dependency = c("shiny_style.css","style.css","simple-skillbar.css","dropdownbutton.css"),
+                          dependency_script = c("simple-skillbar.js","barchart-binding.js","scoremessage.js"))
+                        
+                 )#column
                ),
                fluidRow(
-                 column(6,cityMap("city_map1")),
-                 column(6,cityMap("city_map2"))
-               ),
-               fluidRow(
-                 column(12,cityScoreUI("city_score"))
+                 column(12,
+                        column(6,
+                               citySelect("city1"),
+                               cityMap("city_map1")
+                               
+                               ),
+                        column(6,citySelect("city2", selected="Paris"),cityMap("city_map2"))
+                        
+                 )
                ),
                fluidRow(
                  column(12,cityCountUI("city_count"))
                )
              )
-    ),#city vs city
-    tabPanel("Statistics",
+    ),
+    tabPanel("About",
+             about("aboutmod")
              
-             fluidRow(
-               column(12,tags$h1("Change statistics")),
-               column(12,filteringUI("statsfilter"),style="text-align:center")
-             )
     )
   )
 }
@@ -66,7 +86,7 @@ ui <- function(){
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 server <- function(input, output, session) {
   
-  shiny::addResourcePath("images", system.file("www/images", package="stravachaser"))
+  addResourcePath("images", system.file("www/images", package="stravachaser"))
   addResourcePath('datasets', system.file('data', package='datasets'))
   
   #withProgress(message = 'Getting strava data ',value=0.5,
@@ -82,14 +102,14 @@ server <- function(input, output, session) {
   
   # Create a reactive from the two city data modules
   city_data <-  reactive({
-      showProgress("stravachaser-progress","Collecting data",10)
-      data <- dplyr::bind_rows(
-        city_statistic(filters=stats_filters(), city_data = city_map1()),
-        city_statistic(filters=stats_filters(), city_data = city_map2()),
-        .id = "city"
-      )
-      hideProgress("stravachaser-progress")
-      return(data)
+    showProgress("stravachaser-progress","Collecting data",10)
+    data <- dplyr::bind_rows(
+      city_statistic(filters=stats_filters(), city_data = city_map1()),
+      city_statistic(filters=stats_filters(), city_data = city_map2()),
+      .id = "city"
+    )
+    hideProgress("stravachaser-progress")
+    return(data)
   })
   
   

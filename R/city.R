@@ -12,13 +12,14 @@
 citySelect <- function(id, selected = "London", selections = c(
   "London" = "London",
   "Paris" = "Paris",
-  "Berlin" = "Berlin"
+  "Berlin" = "Berlin",
+  "Munich" = "Munich"
 )) {
   # Create a namespace function using the provided id
   ns <- NS(id)
   
-  tagList(
-    selectInput(ns("name"), "City Name", choices = selections ,selected = selected),
+  div(class="city-select",
+    selectInput(ns("name"), "", choices = selections ,selected = selected),
     sliderInput(ns("radius"), label = "Radius (km)",min = 1,max=30,value=20)
    # textOutput(ns("mytext"))
   )
@@ -34,7 +35,6 @@ citySelect <- function(id, selected = "London", selections = c(
 #' 
 #' @return The data for all segments of the city
 #' 
-#' @importFrom prettymapr geocode
 #' @importFrom glue glue
 #' @import leaflet
 #' @importFrom rlang .data

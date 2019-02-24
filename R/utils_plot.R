@@ -103,7 +103,6 @@ segment_map <- function(
     library = 'fa',
     markerColor = "#fc4c02"
   )
-  
   leaflet() %>%
     addProviderTiles(leaflet::providers$Stamen.TonerLite,
                      options = providerTileOptions(noWrap = TRUE)
@@ -126,7 +125,7 @@ segment_map <- function(
 #' 
 #' @description This is linked to the 'barchart-binding.js' and is generated with the 'simple-skillbar.js'
 #' 
-barChartOutput <- function(id, label="", color_left="#fc4c02", color_right = "rgb(54, 72, 140)", height="3em") {
+barChartOutput <- function(id, label="", color_left="#fc4c02", color_right = "#777777", height="3em") {
   
   div(
     if(label != ""){

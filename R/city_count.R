@@ -31,7 +31,7 @@ cityCountUI <- function(id) {
         )# plotOutput
        
     )),#div #column
-    column(12,HTML("Click the graphic for details")),
+    column(12,HTML("Click the bar for a detailed distribution")),
     column(12,div(style="height:5em")),
     div(id=ns("city_hist_wrapper"),class="count wrapper",style="display:none",
         column(6,cityhistUI(ns("city_hist1"))),

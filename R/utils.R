@@ -67,12 +67,11 @@ calc_distance <- function(
 #' @param city Name of the city
 #' @param radius Radius in m
 #' 
-#' @importFrom prettymapr geocode
 #' @export
 #' @details To use this function you need to call \code{data(all_data_table_strava)}
 calc_distance_city_stravasegments <- function(city = "London", radius = 3000){
   
-  points_to <- prettymapr::geocode(city)[1,c("lon","lat")]
+  points_to <- geocode_limited(city) # old colde:prettymapr::geocode(city)[1,c("lon","lat")]
   
   points_to$lng <- points_to$lon
   
@@ -111,4 +110,16 @@ calc_score <- function(statistics = "med", elevation_factor = 1,  city_data_sets
     "avg" = city_data_sets %>% dplyr::mutate(score = as.numeric(.data$average)) %>%
       dplyr::filter(.data$score>0) %>% dplyr::mutate(score = .data$score + !!elevation_factor*0.1*.data$climb),
   )
+}
+
+geocode_limited <- function(city_name){
+  
+  switch(city_name,
+         "London" = data.frame("lon" =  -0.1276474, "lat" = 51.50732),
+         "Berlin" = data.frame("lon" =  13.38886, "lat" = 52.51704),
+         "Paris" = data.frame("lon" =  2.351499, "lat" = 48.85661),
+         "Munich" = data.frame("lon" =  11.57538, "lat" = 48.13711)
+         
+         )
+  
 }

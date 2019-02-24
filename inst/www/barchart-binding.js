@@ -27,6 +27,8 @@ binding.renderValue = function(el, data) {
       // Remove the old bar chart
       $el.find('.leftwrapper').each(function(e){$(this).remove()});
       $el.find('.rightwrapper').each(function(e){$(this).remove()});
+      $el.find('label').each(function(e){$(this).remove()});
+      $el.find('br').each(function(e){$(this).remove()});
       
       // Append the new barchart for each element
       for (i = 0; i < data.label.length; i++) { 

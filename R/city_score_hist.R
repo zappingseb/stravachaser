@@ -78,12 +78,22 @@ city_score_hist <- function(input, output, session, city_data=NULL, stats=NULL) 
       left[which(is.na(left))] <- 0
       right[which(is.na(right))] <- 0
       
+      clean_labels <- function(x){
+        strsplit(x,",")[[1]] %>% paste(
+          "km"
+          
+        ) %>%
+          paste0(collapse = " - ") %>%
+          
+          stringr::str_replace_all(pattern="\\]|\\(",replacement = "")
+      }
+      
       #' Plot left/right statistics
       jsonlite::toJSON(
         list(
           left = left,
           right = right,
-          label = labels,
+          label = vapply(labels, FUN = clean_labels,FUN.VALUE = character(1)),
           unit = "(~km/h)"
         )
         

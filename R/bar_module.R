@@ -1,4 +1,4 @@
-barChartOutput <- function(id, color_left="#fc4c02", color_right = "rgb(54, 72, 140)", height="2em") {
+barChartOutput <- function(id, color_left="#fc4c02", color_right = "#777777", height="2em") {
   HTML(
     glue::glue(
       '<div id="{id}" class="stravachaser barchart">

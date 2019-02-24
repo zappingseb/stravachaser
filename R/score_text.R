@@ -38,7 +38,7 @@ score_text <- function(input, output, session, scores = NULL,city_data=NULL) {
     scores()
     },{
     shinyjs::hide('winner-wrapper')
-      Sys.sleep(1)
+      Sys.sleep(2)
     shinyjs::show('winner-wrapper',anim = TRUE, animType = "fade", time = 1)
   })
     
