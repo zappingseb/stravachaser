@@ -111,6 +111,13 @@ about <- function(id){
                     of the length of segments by clicking on the bar. Some more features are shown below:</p>")
                ),
                column(12,
+                      tags$h3("Author"),
+                      HTML("<p><b>Sebastian Wolf </b><a href='https://github.com/zappingseb'>@zappingseb</a></p>"),
+                      HTML("<p><b>App Code at: </b><a href='https://github.com/zappingseb/stravachaser'>zappingseb/stravachaser</a></p>"),
+                      HTML("<p><b>Author's blog </b><a href='https://medium.com/@zappingseb'>medium.com/@zappingseb</a></p>"),
+                      HTML("<p><b>Author's LinkedIn </b><a href='https://www.linkedin.com/in/zappingseb'>www.linkedin.com/in/zappingseb</a></p>")
+                      ),
+               column(12,
                         tags$img(id=ns("app"),onclick=paste0("enlarge('",ns('app'),"')"),src="images/app.png", width="100%", class="about image left")
                         
                ),
