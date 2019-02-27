@@ -106,9 +106,11 @@ calc_score <- function(statistics = "med", elevation_factor = 1,  city_data_sets
   switch(
     statistics,
     "med" = city_data_sets %>% dplyr::mutate(score = as.numeric(.data$median)) %>%
-      dplyr::filter(.data$score>0) %>% dplyr::mutate(score = .data$score + !!elevation_factor*0.1*.data$climb),
+      dplyr::filter(.data$score>0) %>% dplyr::filter(.data$score<100) %>% 
+      dplyr::mutate(score = .data$score + abs(!!elevation_factor*0.1*.data$climb)),
     "avg" = city_data_sets %>% dplyr::mutate(score = as.numeric(.data$average)) %>%
-      dplyr::filter(.data$score>0) %>% dplyr::mutate(score = .data$score + !!elevation_factor*0.1*.data$climb),
+      dplyr::filter(.data$score>0)  %>% dplyr::filter(.data$score<100) %>% 
+      dplyr::mutate(score = .data$score + abs(!!elevation_factor*0.1*.data$climb))
   )
 }
 

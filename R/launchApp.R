@@ -23,18 +23,19 @@ launchApp <- function() {
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 ui <- function(){
   
-  shiny::navbarPage(HTML(
-    "<div class = 'appname'><i class='fas fa-bicycle'></i> City Race</div>"
+  shiny::navbarPage(id="toppanel",HTML(
+    "<div class = 'appname'><i class='fas fa-bicycle'></i> City Cycle Race</div><div id='placeholder'></div>"
   ),
-    
-                      
-    tabPanel("City vs City",
-               useShinyjs(), 
+            
+    tabPanel("City vs City",value="race",
+             homePageUI("startmodal"),
+             useShinyjs(), 
              
              tags$head(
                tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Roboto")
              ), 
-             div(class="stravachaserdropdown",dropdownButton(
+             div(id="stravachaserdropdownitem",class="stravachaserdropdown",
+                 dropdownButton(
                circle = FALSE,
                tooltipOptions(title = "More statistic options.",placement = "right"),
                icon = icon("gear"), 
@@ -45,7 +46,8 @@ ui <- function(){
              fluidRow(
                fluidRow(
                  column(12,
-                        
+                        tags$h2("Which city is faster?"),
+                        scoreTextUI("score_text"),
                         attachstravavisDep(
                           cityScoreUI("city_score"),
                           dependency = c("shiny_style.css","style.css","simple-skillbar.css","dropdownbutton.css"),
@@ -69,8 +71,12 @@ ui <- function(){
                )
              )
     ),
-    tabPanel("About",
+    tabPanel("About",value="about",
              about("aboutmod")
+             
+    ),
+    tabPanel("Share",value="share",
+             shareUI("shareit")
              
     )
   )
@@ -89,9 +95,10 @@ server <- function(input, output, session) {
   addResourcePath("images", system.file("www/images", package="stravachaser"))
   addResourcePath('datasets', system.file('data', package='datasets'))
   
-  #withProgress(message = 'Getting strava data ',value=0.5,
-  #  data("all_data_table_strava")
-  # )
+  # Move the Settings Button into the menu
+  shinyjs::runjs('$("#stravachaserdropdownitem").appendTo("#placeholder");')
+  
+  callModule(homepage, "startmodal")
   
   # Call twice the city module = MAP + Radius + Choice
   city_map1  <- callModule(city, "city1")
@@ -99,6 +106,9 @@ server <- function(input, output, session) {
   
   # Render the statistic filtering module
   stats_filters <- callModule(filtering,"statsfilter")
+  
+  # Call the share button for the stats filters
+  callModule(share, "shareit", filters = stats_filters)
   
   # Create a reactive from the two city data modules
   city_data <-  reactive({
@@ -112,7 +122,6 @@ server <- function(input, output, session) {
     return(data)
   })
   
-  
   # Visualize the segments per city at a map
   callModule(module = city_map, id = "city_map1", city_data = city_data, city_id = 1)
   callModule(module = city_map, id = "city_map2", city_data = city_data, city_id = 2)
@@ -124,5 +133,5 @@ server <- function(input, output, session) {
   score_table <- callModule(city_score,"city_score",city_data=city_data, stats = stats_filters)
   
   # Visualize which city won
-  callModule(score_text,"scoretext",scores = score_table, city_data = city_data)
+  callModule(score_text,"score_text",scores = score_table, city_data = city_data)
 }

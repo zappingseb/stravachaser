@@ -1,7 +1,7 @@
 .row{
   margin-left: 0 !important;
-    margin-top: 1em;
-    margin-bottom: 2em;
+  /* margin-top: 1em; */
+  margin-bottom: 2em;
 }
 
 .col-sm-12{
@@ -39,8 +39,8 @@ body .navbar{
     color: white !important;
     font-weight: 100;
     font-size: 1.3em !important;
-        width: 100%;
-        min-width: 10em
+    width: 100%;
+    min-width: 19em;
 }
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
     color: #5e5e5e;
@@ -55,7 +55,6 @@ body .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>
     background-color: #ffffff !important;
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
-
     color:#fc4c03;
     z-index: 2;
 }
@@ -189,3 +188,4 @@ span.irs-slider.from {
     box-shadow: none;
     margin-top:-2px !important;
 }
+

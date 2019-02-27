@@ -1,8 +1,12 @@
 /* New styling for shinyWidgets dropdownButton */
 .stravachaserdropdown {
     text-align: right;
-    
-    
+    float: right;
+    margin-top: -1.95em;
+    margin-left: 1em;
+    border-left: 1px solid #efefef;
+    border-right: 1px solid #efefef;
+    /* font-size: 0.5em; */
 }
 
 .stravachaserdropdown .btn-info {
@@ -15,23 +19,22 @@
     min-width: 3.63333em !important;
     box-shadow: none;
     webkit-box-shadow: none;
-    position: fixed;
-    right:0;
-    top:0;
-    z-index: 1010;
+    /* position: fixed; */
+    /* right:0; */
+    /* top: 0; */
+    /* z-index: 1040; */
 }
 .stravachaserdropdown .btn-info.active, .btn-info:active, .open>.dropdown-toggle.btn-info {
-    background-color: #fc4c02 !important;
+    background-color: #e04302 !important;
     border-color: #fc4c02 !important;
-    
 }
 .stravachaserdropdown .dropdown-menu {
     position: absolute;
     /* top: 100%; */
     /* right: 0; */
-    top: 1em;
-    right: 0;
-    left: 0;
+    /* top: 1em; */
+    /* right: 0; */
+    left: -11em;
     display: none;
     min-width: 160px;
     padding: 2em 2em;
@@ -45,6 +48,9 @@
     -webkit-border-radius: 0px;
     -webkit-box-shadow: none;
     box-shadow: none;
+    width: 40vw;
+    margin-top: 0.6em;
+    min-width: 18em;
 }
 .dropdown-menu>li:first-child{
     display:none;
@@ -56,4 +62,22 @@
 }
 .stravachaserdropdown .btn-info:hover {
     background-color: #fb7239 !important;
+}
+
+.stravachaserdropdown .btn-info::before{
+    content: "Race settings"
+}
+
+.stravachaserdropdown label{
+    font-size: 0.5em;
+    font-weight: 800;
+}
+.stravachaserdropdown .selectize-input{
+    font-size: 0.5em;
+    font-weight: 300;
+}
+.stravachaserdropdown p{
+    font-size: 0.5em;
+    font-weight: 300;
+color: #777777;
 }

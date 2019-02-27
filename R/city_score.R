@@ -24,7 +24,6 @@ cityScoreUI <- function(id) {
   )#div
   
   fluidRow(
-    tags$h2("Which city is faster?"),
     div(style="font-size:0.8em",tags$p("You can click the bar chart for details on the race.")),
     column(12,mytag),
     
@@ -76,12 +75,15 @@ city_score <- function(input, output, session, city_data=NULL, stats=NULL) {
       "med" = score_data() %>% dplyr::group_by(.data$city) %>% dplyr::summarise(score_new = median(.data$score,na.rm=T)),
       "avg" = score_data() %>% dplyr::group_by(.data$city) %>% dplyr::summarise(score_new = mean(.data$score,na.rm=T))
     )
+    
+    
   })
   
   # Output to show left and right the scores
   output$score_compare <- renderBarChart(
     {
       scores <- scores()
+      
       jsonlite::toJSON(
         list(
           left=round(scores$score_new[1],3),

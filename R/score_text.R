@@ -11,7 +11,7 @@ scoreTextUI <- function(id) {
   
   div(id=ns("winner-wrapper"),class="andthewinneris",
           
-    htmlOutput(ns("winnerimage"))
+    textOutput(ns("winnerimage"))
   )
   
   
@@ -38,8 +38,7 @@ score_text <- function(input, output, session, scores = NULL,city_data=NULL) {
     scores()
     },{
     shinyjs::hide('winner-wrapper')
-      Sys.sleep(2)
-    shinyjs::show('winner-wrapper',anim = TRUE, animType = "fade", time = 1)
+    shinyjs::show('winner-wrapper',anim = TRUE, animType = "fade", time = 2.5)
   })
     
   winner <- reactive({
@@ -48,13 +47,6 @@ score_text <- function(input, output, session, scores = NULL,city_data=NULL) {
     city_names[which(score_table$score_new==max(score_table$score_new,na.rm=T))]
   })
   
-  output$winnerimage <- renderUI({
-    HTML(paste0(
-      "<div class='bgimage' style='background-image:url(./images/",tolower(winner()), ".jpg)'></div>",
-      "<div class='scoremessage'  >",
-      winner()," is the Winner!</div>"
-      )
-    )
-  })
+  output$winnerimage <- renderText(winner())
 }
 

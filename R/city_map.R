@@ -11,8 +11,16 @@ cityMap <- function(id) {
   ns <- NS(id)
   
   div(class="city-map",
-    leaflet::leafletOutput(ns("mymap"))
+    tags$br(),
+    shinyWidgets::materialSwitch(inputId = ns("maponoff"), value = FALSE, label = "Show the city map with all STRAVA segments"),
+    
+    conditionalPanel(
+      condition = paste0("input['",ns("maponoff"), "']"),
+          leaflet::leafletOutput(ns("mymap"))
+    ),
+    tags$br()
   )
+  
   
 }
 
@@ -30,7 +38,7 @@ cityMap <- function(id) {
 city_map <- function(input, output, session, city_data = NULL, city_id=NULL) {
   # Create a map with a radial layer
   map <- reactive({
-      updateProgress("stravachaser-progress","Rendering maps...",city_id*40)
+      
     
       segment_data_rendered <- city_data()
       
@@ -49,7 +57,7 @@ city_map <- function(input, output, session, city_data = NULL, city_id=NULL) {
       
       output <- segment_map(segment_data = segment_data_rendered, radius = radius, zoom=new_zoom, marker_list = marker_list)
       
-      hideProgress("stravachaser-progress")
+      
       
       return(output)
   })
