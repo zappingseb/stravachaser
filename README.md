@@ -4,10 +4,10 @@
 
 ## Links
 
-[App in Action (shinyapps.io)](https://sebastianwolf.shinyapps.io/stravachaserapp/)
-[Github Repo](https://github.com/zappingseb/stravachase)
-[RStudio Cloud Project](https://rstudio.cloud/project/180441)
-[Author's Linkedin](https://linkedin.com/in/zappingseb)
+* [App in Action (shinyapps.io)](https://sebastianwolf.shinyapps.io/stravachaserapp/)
+* [Github Repo](https://github.com/zappingseb/stravachase)
+* [RStudio Cloud Project](https://rstudio.cloud/project/180441)
+* [Author's Linkedin](https://linkedin.com/in/zappingseb)
 
 ## Background story 
 
@@ -24,14 +24,16 @@ This shiny app allows to compare how fast people cycle in your city. This app us
 | Variables measured per segment    | 23         |
 ```
 
-What the app can do will be shown in the next section.
+What the app can do will be shown in the next section. To read more about the process of how to get the data, just start the app on 
+[shinyapps.io](https://sebastianwolf.shinyapps.io/stravachaserapp/) and go to the "About" section.
 
 ## Features
 
 ### City Select
 
 The app now first allows to select a city by radius and see the segments in a map. The map highlights each
-segment by the average speed on the segment. 
+segment by the average speed on the segment. The city radius gets drawn into the map such that you can
+see how much of e.g. London you covered with 20 km radius.
 
 ![City Select](https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/app.png)
 
