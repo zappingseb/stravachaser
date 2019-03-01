@@ -2,9 +2,16 @@
     max-height: 9em;
 }
 .city.count.withhover:hover {
+  overflow: hidden;
   -moz-box-shadow:    3px 3px 5px 6px #ebebeb;
-  -webkit-box-shadow: 3px 3px 5px 6px #ebebeb;
-  box-shadow:         3px 3px 5px 6px #ebebeb;
+  /* -webkit-box-shadow: 3px 3px 5px 6px #ebebeb; */
+  /* box-shadow: 2px 0px 14px 15px #ebebeb; */
+  /* border:  1px solid green; */
+  /* outline: none; */
+  /* border: 2px solid green; */
+  /* border-color: #9ecaed; */
+  box-shadow: 0px 0px 5px 5px #fc4c02;
+  background-color: #fc4c02;
 }
 
 /* Progressbar style */
@@ -317,7 +324,7 @@ ul.share-buttons .sr-only{
 	position: relative;
 	right:.8em;
 	left:0.8em;
-	z-index:1000;
+	/* z-index:1000; */
 	text-align: right;
 	background: white;
 	width: 30em;
@@ -350,4 +357,18 @@ ul.share-buttons .sr-only{
 }
 .hideit{
 	visibility: hidden;
+}
+
+/* links */
+
+a:focus, a:hover {
+    color: #ab3f11;
+    text-decoration: underline;
+}
+a:link {
+    color: #fc4c02;
+    text-decoration: underline;
+}
+a:visited{
+	color: #da4202
 }

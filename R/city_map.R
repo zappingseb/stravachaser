@@ -16,9 +16,13 @@ cityMap <- function(id) {
     
     conditionalPanel(
       condition = paste0("input['",ns("maponoff"), "']"),
-          leaflet::leafletOutput(ns("mymap"))
+          leaflet::leafletOutput(ns("mymap")),
+          tags$br(),
+          tags$p("yellow = fast, red = slow")
+                
     ),
     tags$br()
+    
   )
   
   

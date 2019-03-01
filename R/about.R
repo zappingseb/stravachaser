@@ -12,7 +12,7 @@ about <- function(id){
         column(12,
                tags$h2("How can cities race against each other?"),
                column(12,
-                      tags$img(id="race1",onclick="enlarge('race1')",src="images/race1.jpg", width="100%", class="about image left")),
+                      tags$img(id="race1",onclick="enlarge('race1')",src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/race1.jpg", width="100%", class="about image left")),
                column(12,
                       tags$h3("Background"),
                       HTML("<p>This app uses data from <b><a href='https://strava.com'>strava</a></b> to compare the cyclists in two cities.
@@ -28,7 +28,7 @@ about <- function(id){
                ),
                column(12,
                       tags$img(id="leaderboard",onclick=paste0("enlarge('",ns('leaderboard'),"')"),
-                               src="images/leaderboard.png", width="100%", class="about image right")
+                               src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/leaderboard.png", width="100%", class="about image right")
                ),
                
                column(12,
@@ -98,7 +98,7 @@ about <- function(id){
                   Finally segments can be chosen that contain a certain number of athletes.</p>")
                ),
                column(12,
-                      tags$img(id=ns("math"),onclick=paste0("enlarge('",ns('math'),"')"),src="images/math.png", width="100%", class="about image left")
+                      tags$img(id=ns("math"),onclick=paste0("enlarge('",ns('math'),"')"),src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/math.png", width="100%", class="about image left")
                       
                ),
                column(12,
@@ -118,27 +118,27 @@ about <- function(id){
                       HTML("<p><b>Author's LinkedIn </b><a href='https://www.linkedin.com/in/zappingseb'>www.linkedin.com/in/zappingseb</a></p>")
                       ),
                column(12,
-                        tags$img(id=ns("app"),onclick=paste0("enlarge('",ns('app'),"')"),src="images/app.png", width="100%", class="about image left")
+                        tags$img(id=ns("app"),onclick=paste0("enlarge('",ns('app'),"')"),src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/app.png", width="100%", class="about image left")
                         
                ),
                tags$p("Map feature"),
                column(12,
-                      tags$img(id=ns("app_split"),onclick=paste0("enlarge('",ns('app_split'),"')"),src="images/app_split.png", width="100%", class="about image left")
+                      tags$img(id=ns("app_split"),onclick=paste0("enlarge('",ns('app_split'),"')"),src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/app_split.png", width="100%", class="about image left")
                       
                ),
                tags$p("Segment split feature"),
                column(12,
-                      tags$img(id=ns("app_segments_stats"),onclick=paste0("enlarge('",ns('app_segments_stats'),"')"),src="images/app_segments_stats.png", width="100%", class="about image left")
+                      tags$img(id=ns("app_segments_stats"),onclick=paste0("enlarge('",ns('app_segments_stats'),"')"),src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/app_segments_stats.png", width="100%", class="about image left")
                       
                ),
                tags$p("Segment statistics feature"),
                column(12,
-                      tags$img(id=ns("filter"),onclick=paste0("enlarge('",ns('filter'),"')"),src="images/filter.png", width="100%", class="about image left")
+                      tags$img(id=ns("filter"),onclick=paste0("enlarge('",ns('filter'),"')"),src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/filter.png", width="100%", class="about image left")
                       
                ),
                tags$p("Data filtering feature."),
                column(12,
-                      tags$img(id=ns("segment_access"),onclick=paste0("enlarge('",ns('segment_access'),"')"),src="images/segment_access.png", width="100%", class="about image left")
+                      tags$img(id=ns("segment_access"),onclick=paste0("enlarge('",ns('segment_access'),"')"),src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/segment_access.png", width="100%", class="about image left")
                       
                ),
                tags$p("Accessing a segment on STRAVA.")

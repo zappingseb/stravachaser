@@ -21,13 +21,15 @@ cityCountUI <- function(id) {
     tags$h2("Selected Segments"),
     column(12,attachstravavisDep(tag = mytag)),
     column(12,div(style="height:2em")),
-    column(12,div(class="city count withhover",
+    column(12,
+           
+        tags$label("length of segment (Average)"),
+        div(class="city count withhover",
                   
         # Send out a value jsValue to show hide the histograms inside the wrapper          
         onClick=paste0("Shiny.onInputChange('",ns('jsValue'),"',Math.random());"),
         barChartOutput(
-          ns("count_length"),
-          label="length of segments (avg)"
+          ns("count_length")
         )# plotOutput
        
     )),#div #column

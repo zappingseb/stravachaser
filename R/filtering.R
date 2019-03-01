@@ -28,10 +28,10 @@ filteringUI <- function(id) {
       fluidRow(
         column(4,
                tags$label("Gender of cyclists"),
-               shinycandlestick::CandleStick(ns("gender"),
+               div(shinycandlestick::CandleStick(ns("gender"),
                                              left = c('f'='f182'),
                                              right = c('m'='f183'),
-                                             default = c('a'='f22d')),
+                                             default = c('a'='f22d'))),
                HTML("<p>
                          Selecting a certain gender will only load scoring results
 from STRAVA segments of the specific gender leaderboard. You

@@ -76,6 +76,12 @@ left_right_plot <- function(label="# of segments",
   grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(4/9,1/9,4/9))
 }
 
+map2color<-function(x,pal,limits=NULL){
+  if(is.null(limits)) limits=range(x)
+  pal[findInterval(x,seq(limits[1],limits[2],length.out=length(pal)+1), all.inside=TRUE)]
+}
+
+
 #' Create a Leaflet map with radius + circle markers
 #' 
 #' Create a map of a certain location. It is surrounded by a ring
@@ -103,17 +109,24 @@ segment_map <- function(
     library = 'fa',
     markerColor = "#fc4c02"
   )
-  leaflet() %>%
+  
+  color_data <- segment_data %>% 
+    mutate( average = as.numeric(average)) %>% 
+    mutate( average = replace(average, average >= 100, 100)) %>% 
+    mutate( average = replace(average, is.na(average), 0)) %>% 
+    mutate( color = map2color(average, heat.colors(200)))
+  
+  leaflet(options = leafletOptions(dragging = FALSE, tap = FALSE)) %>%
     addProviderTiles(leaflet::providers$Stamen.TonerLite,
                      options = providerTileOptions(noWrap = TRUE)
     ) %>%
     setView(lat = marker_list$'lat',lng = marker_list$'lon', zoom = zoom) %>%
     addAwesomeMarkers(data = marker_list, icon=icons) %>%
     addCircles(lat = marker_list$'lat',lng=marker_list$'lon',radius = radius,color="#fc4c02",fillColor="#e6e6eb") %>%
-    addCircleMarkers(data=segment_data[,c("lng","lat")],
+    addCircleMarkers(data=color_data[,c("lng","lat")],
                      popup = glue::glue(
-                       "<a target='_new' href='https://www.strava.com/segments/{segment_data$id}'>{segment_data$name}</a>"),
-                     radius = 0.5,color = "#fc4c02")
+                       "<a target='_new' href='https://www.strava.com/segments/{color_data$id}'>{color_data$name}</a>"),
+                     radius = 0.5,color = color_data$color)
 }
 
 #' Shiny output for a two sided barchart

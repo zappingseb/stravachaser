@@ -34,6 +34,9 @@ ui <- function(){
              tags$head(
                tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Roboto")
              ), 
+             tags$head(
+               tags$title("City Cycle Race")
+             ), 
              div(id="stravachaserdropdownitem",class="stravachaserdropdown",
                  dropdownButton(
                circle = FALSE,
@@ -91,6 +94,7 @@ ui <- function(){
 #' @export
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 server <- function(input, output, session) {
+  shinyjs::runjs("$(\"head>title:contains('div')\").remove();")
   
   addResourcePath("images", system.file("www/images", package="stravachaser"))
   addResourcePath('datasets', system.file('data', package='datasets'))

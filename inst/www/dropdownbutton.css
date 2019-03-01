@@ -48,7 +48,8 @@
     -webkit-border-radius: 0px;
     -webkit-box-shadow: none;
     box-shadow: none;
-    width: 40vw;
+    max-width: 80vw;
+    width: 40em;
     margin-top: 0.6em;
     min-width: 18em;
 }
