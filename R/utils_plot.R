@@ -94,6 +94,7 @@ map2color<-function(x,pal,limits=NULL){
 #' @param marker_list \code{numeric} center of the map containing lon and lat variable
 #' @param zoom \code{numeric} leaflet zoom
 #' 
+#' @importFrom grDevices heat.colors
 #' @import leaflet
 #' @importFrom glue glue
 #' @importFrom rlang .data

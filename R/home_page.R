@@ -1,5 +1,7 @@
 #' Modal dialog on Front Page
 #' 
+#' @param id \code{character} Id of the item
+#' 
 #' @author Sebastian Wolf
 #' @import shiny 
 homePageUI <- function(id) {

@@ -17,6 +17,7 @@ Imports:
     ggplot2,
     grid,
     gridExtra,
+    grDevices,
     htmltools,
     RANN,
     dplyr,
