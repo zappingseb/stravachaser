@@ -1,0 +1,15 @@
+TODO
+
+- write blog post
+- write comment in RStudio
+
+
+DONE:
+- Fix width such that right side is not in the border
+- color the map as heatmap
+- fix z-index of get link
+- Make the images come from Webserver instead of the r-package
+- color links in about
+- undo 1 finger scrolling leaflet
+- fix the default setting of shinycandlestick
+- change title
