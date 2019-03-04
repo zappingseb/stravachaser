@@ -2,7 +2,7 @@
 
 # City Cycle Race (stravachaser) - Compare the cycling speed of cities
 
-![](https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/app_capture.gif)
+![](https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/app_small.gif)
 
 ## SubProjects
 
