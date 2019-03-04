@@ -4,6 +4,12 @@
 
 ![](https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/app_capture.gif)
 
+## SubProjects
+
+* https://github.com/zappingseb/shiny_animatedbar
+* https://github.com/zappingseb/shinycandlestick
+* https://github.com/zappingseb/stravachaserapp
+
 ## Links
 
 * [App in Action (shinyapps.io)](https://sebastianwolf.shinyapps.io/stravachaserapp/)
