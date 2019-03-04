@@ -11,6 +11,7 @@ about <- function(id){
       fluidRow(
         column(12,
                tags$h2("How can cities race against each other?"),
+               tags$HTML("<p><b>Please upvote this app at: </b><a href='https://community.rstudio.com/t/shiny-contest-submission-city-cycle-race-with-strava-compare-the-cycling-speed-of-cities/25112'>R Shiny Contest</a> if you like it</p>"),
                column(12,
                       tags$img(id="race1",onclick="enlarge('race1')",src="https://raw.githubusercontent.com/zappingseb/stravachaser/master/inst/www/images/race1.jpg", width="100%", class="about image left")),
                column(12,
